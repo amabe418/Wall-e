@@ -19,7 +19,7 @@ namespace Walle
         private int borderSize = 2;
         private bool underlinedStyle = false;
 
-        private int borderRadius = 0;
+        private int borderRadius = 20;
 
         //Constructor
         public CustomTextBox()
@@ -142,70 +142,34 @@ namespace Walle
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            Graphics graph = e.Graphics;
-            if (borderRadius > 1)//rounded TextBox
-            {
-                //fields
-                var rectBorderSmooth = this.ClientRectangle;
-                var rectBorder = Rectangle.Inflate(rectBorderSmooth, -BorderSize, -BorderSize);
-                int smoothSize = borderSize > 0 ? borderSize : 1;
 
-                using (GraphicsPath pathBorderSmooth = GetFigurePath(rectBorderSmooth, borderSize))
-                using (GraphicsPath pathBorder = GetFigurePath(rectBorder, borderRadius - borderSize))
-                using (Pen penBorderSmooth = new Pen(this.Parent.BackColor, smoothSize))
-                using (Pen penBorder = new Pen(borderColor, borderSize))
-                {
-                    //DRAWING
-                    this.Region = new Region(pathBorderSmooth);
-                    if (borderRadius > 15)
-                        SetTextBoxRoundedRegion();// set the rounded region
-                    graph.SmoothingMode = SmoothingMode.AntiAlias;
-                    penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Center;
-                    if (underlinedStyle) //LineStyle
-                    {
-                        //draw border smoothing
-                        graph.DrawPath(penBorder, pathBorderSmooth);
-                        //Draw border
-                        graph.SmoothingMode = SmoothingMode.None;
-                        graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
-                    }
-                    else // normal style
-                    {
-                        //draw border smoothing
-                        graph.DrawPath(penBorder, pathBorderSmooth);
-                        //Draw border
-                        graph.DrawPath(penBorder, pathBorder);
+            // Define the rounding degree for the corners
+            int cornerRadius = borderRadius;
 
-                    }
-                }
-            }
-            else //normal TextBox
+            // Create a GraphicsPath to draw the rounded rectangle
+            using (GraphicsPath path = new GraphicsPath())
             {
-                //draw border
-                using (Pen penBorder = new Pen(borderColor, borderSize))
+                int width = this.Width;
+                int height = this.Height;
+
+                // Add arcs to the path for each corner
+                path.AddArc(0, 0, cornerRadius * 2, cornerRadius * 2, 180, 90); // Top left
+                path.AddArc(width - (cornerRadius * 2), 0, cornerRadius * 2, cornerRadius * 2, 270, 90); // Top right
+                path.AddArc(width - (cornerRadius * 2), height - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2, 0, 90); // Bottom right
+                path.AddArc(0, height - (cornerRadius * 2), cornerRadius * 2, cornerRadius * 2, 90, 90); // Bottom left
+                path.CloseFigure();
+
+                // Set the control's Region to the rounded rectangle path
+                this.Region = new Region(path);
+
+                // Draw the border
+                using (Pen pen = new Pen(borderColor,borderSize))
                 {
-                    this.Region = new Region(this.ClientRectangle);
-                    if (underlinedStyle) //LineStyle
-                        graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
-                    else // normal style
-                        graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
+                    e.Graphics.DrawPath(pen, path);
                 }
             }
         }
-
-        private void SetTextBoxRoundedRegion()
-        { GraphicsPath pathTxt;
-            if (Multiline)
-            {
-                pathTxt = GetFigurePath(textBox1.ClientRectangle, borderRadius - borderSize);
-                textBox1.Region = new Region(pathTxt);
-            }
-            else
-            {
-                pathTxt = GetFigurePath(textBox1.ClientRectangle, borderRadius*2);
-                textBox1.Region = new Region(pathTxt);
-            }
-        }
+           
 
         private GraphicsPath GetFigurePath(RectangleF rect, float radius)
         {

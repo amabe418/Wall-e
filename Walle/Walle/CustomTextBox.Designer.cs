@@ -35,10 +35,10 @@
             // 
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(10, 7);
+            this.textBox1.Location = new System.Drawing.Point(15, 7);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(230, 16);
+            this.textBox1.Size = new System.Drawing.Size(220, 16);
             this.textBox1.TabIndex = 0;
             this.textBox1.Click += new System.EventHandler(this.TextBox1_Click);
             this.textBox1.TextChanged += new System.EventHandler(this.TextBox1_TextChanged);
@@ -51,7 +51,7 @@
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CustomTextBox";
-            this.Padding = new System.Windows.Forms.Padding(10, 7, 10, 7);
+            this.Padding = new System.Windows.Forms.Padding(15, 7, 15, 7);
             this.Size = new System.Drawing.Size(250, 30);
             this.ResumeLayout(false);
             this.PerformLayout();

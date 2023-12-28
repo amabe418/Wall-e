@@ -49,6 +49,9 @@
     <Compile Include="CustomButton.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CustomPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CustomTextBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -61,8 +64,27 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GSharp\DataType.cs" />
+    <Compile Include="GSharp\Error.cs" />
+    <Compile Include="GSharp\Evaluator.cs" />
+    <Compile Include="GSharp\Expressions\Expression.cs" />
+    <Compile Include="GSharp\Expressions\Geometric.cs" />
+    <Compile Include="GSharp\Expressions\Sequence.cs" />
+    <Compile Include="GSharp\Expressions\Statement.cs" />
+    <Compile Include="GSharp\Figure.cs" />
+    <Compile Include="GSharp\GSharpColor.cs" />
+    <Compile Include="GSharp\Interpreter.cs" />
+    <Compile Include="GSharp\Intersect.cs" />
+    <Compile Include="GSharp\IUserInterface.cs" />
+    <Compile Include="GSharp\Lexer\Lexer.cs" />
+    <Compile Include="GSharp\Lexer\Token.cs" />
+    <Compile Include="GSharp\Lexer\TokenType.cs" />
+    <Compile Include="GSharp\Parser\Parser.cs" />
+    <Compile Include="GSharp\Parser\Scope.cs" />
+    <Compile Include="GSharp\StandardLibrary.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utiles\Utiles.cs" />
     <EmbeddedResource Include="CustomTextBox.resx">
       <DependentUpon>CustomTextBox.cs</DependentUpon>
     </EmbeddedResource>
