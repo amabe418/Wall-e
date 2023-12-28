@@ -120,6 +120,7 @@
             this.Controls.Add(this.Ejecutar);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.Lienzo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

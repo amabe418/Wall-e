@@ -13,9 +13,9 @@ namespace Walle
 {
     public partial class Form1 : Form, IUserInterface
     {
-        public int CanvasWidth => throw new NotImplementedException();
+        public int CanvasWidth => Lienzo.Width;
 
-        public int CanvasHeight => throw new NotImplementedException();
+        public int CanvasHeight => Lienzo.Height;
 
         public Form1()
         {
@@ -122,7 +122,10 @@ namespace Walle
             SalidaDeEvaluacion.Texts += message + "\n";
         }
 
-       
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 
        
