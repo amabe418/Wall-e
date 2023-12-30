@@ -26,16 +26,17 @@ namespace Walle
         {
             //Reinicia el lienzo
             this.Lienzo.Refresh();
+            this.SalidaDeEvaluacion.Refresh();
             //Guarda la informacion del TextBox donde se escribe el codigo
-            string code = EntradaDeCodigo.Text;
+            string code = EntradaDeCodigo.Texts;
             Interpreter.Execute(code, this);
-            SalidaDeEvaluacion.Texts = "prueba";
-            using (Graphics graph = Lienzo.CreateGraphics())
-            using (Pen pen = new Pen(Color.Black, 2F))
+            //SalidaDeEvaluacion.Texts = code;
+            //using (Graphics graph = Lienzo.CreateGraphics())
+           /* using (Pen pen = new Pen(Color.Black, 2F))
             {
                 graph.DrawLine(pen, 320, 260,310, 230);
 
-            }
+            }*/
 
         }
 
@@ -67,92 +68,214 @@ namespace Walle
         }
 
 
-        public void DrawPoint(GSharpInterpreter.Point point, GSharpColor color)
+        public void DrawPoint(GSharpInterpreter.Point point, GSharpColor color, string label = "")
         {
             using (Graphics graph = Lienzo.CreateGraphics())
             using (Pen pen = new Pen(GetColor(color), 4F))
             {
-                graph.DrawEllipse(pen, (float)point.X, (float)point.Y, 6F, 6F);
+                graph.DrawEllipse(pen, (float)point.X, (float)point.Y, 2F, 2F);
+            }
+            if (label != "")
+            {
+                DrawText(label, point, color, point);
             }
 
         }
 
-        public void DrawLine(Line line, GSharpColor color)
+        public void DrawLine(Line line, GSharpColor color, string label = "")
         {
             //el objeto linea ya viene con pendiente.
             if (line.P1.X == line.P2.X) //pendiente infinita
             {
-                throw new NotImplementedException();
-            }
-            else // pendiente finita
-            {
-                Point leftExtreme = new Point(0, (float)(line.P1.Y + (0 - line.P1.X) * GetSlope(line.P1, line.P2)));//extremo izquierdo
-                Point rightExtreme = new Point(this.Width, (float)(line.P1.Y + (this.Width - line.P1.X) * GetSlope(line.P1, line.P2))); //estremo derecho
+                // Dibujar una línea vertical con coordenada X constante
+                float x = (float)line.P1.X;
+                using (Graphics graphics = Lienzo.CreateGraphics())
                 using (Pen pen = new Pen(GetColor(color)))
-                using (Graphics graph = Lienzo.CreateGraphics())
                 {
-                    graph.DrawLine(pen, (float)leftExtreme.X, (float)leftExtreme.Y, (float)rightExtreme.X, (float)rightExtreme.Y);
+                    graphics.DrawLine(pen, x, 0, x, CanvasWidth);
                 }
-            }
 
-            throw new NotImplementedException();
+            }
+            else
+            {
+
+              float m = GetSlope(line.P1, line.P2);
+              float b = (float)line.P1.Y - (float)(m * line.P1.X);
+
+              Point point1 = new Point(0, (int)b);
+              Point point2 = new Point(CanvasWidth, (int)(m * CanvasWidth + b));
+
+              using (Graphics graphics = Lienzo.CreateGraphics())
+              using (Pen pen = new Pen(GetColor(color)))
+              {
+                graphics.DrawLine(pen, (float)point1.X, (float)point1.Y, (float)point2.X, (float)point2.Y);
+              }
+            }
+            if (label != "")
+            {
+                DrawText(label, line.P1, color, line);
+            }
         }
 
-        public void DrawSegment(Segment segment, GSharpColor color)
+        public void DrawSegment(Segment segment, GSharpColor color, string label = "")
         {
             using (Graphics graph = Lienzo.CreateGraphics())
             using (Pen pen = new Pen(GetColor(color), 4F))
             {
                 graph.DrawLine(pen, (float)segment.P1.X, (float)segment.P1.Y, (float)segment.P2.X, (float)segment.P2.Y);
             }
-
+            if (label != "")
+            {
+                DrawText(label, segment.P1, color, segment);
+            }
         }
 
-        public void DrawRay(Ray ray, GSharpColor color)
-        {
-            throw new NotImplementedException();
+        public void DrawRay(Ray ray, GSharpColor color, string label = "")
+        {   using (Pen pen = new Pen(GetColor(color)))
+            using (Graphics graphics = Lienzo.CreateGraphics())
+            {
+
+            if (ray.P1.X == ray.P2.X)
+            {
+                    //pendiente infnita, rayo vertical
+                    if (ray.P1.Y > ray.P2.Y)
+                    {
+                        float x = (float)ray.P1.X;
+                        float y = 0;
+                        graphics.DrawLine(pen, (float)ray.P1.X, (float)ray.P1.Y, x, y);
+                    }
+                    else if (ray.P1.Y < ray.P2.Y)
+                    {
+                        float x = (float)ray.P1.X;
+                        float y = CanvasHeight;
+                        graphics.DrawLine(pen, (float)ray.P1.X, (float)ray.P1.Y, x, y);
+                    }
+                    else
+                    {
+                        DrawPoint(ray.P1, color);
+                    }
+
+            }
+            else // rayo normal
+            {
+                float m = GetSlope(ray.P1, ray.P2);
+
+                // Si el punto final está a la derecha del punto inicial
+                if (ray.P2.X >= ray.P1.X)
+                {
+                    float x = CanvasWidth; // Coordenada X en el borde del PictureBox
+                    float y = (float)(ray.P1.Y + m * (x - ray.P1.X)); // Calcular Y correspondiente al borde del PictureBox
+                    graphics.DrawLine(pen, (float)ray.P1.X,(float)ray.P1.Y, x, y); // Dibujar el rayo
+                }
+                // Si el punto final está a la izquierda del punto inicial
+                else
+                {
+                    float x = 0; // Coordenada X en el borde del PictureBox
+                    float y = (float)(ray.P1.Y + m * (x - ray.P1.X)); // Calcular Y correspondiente al borde del PictureBox
+                    graphics.DrawLine(pen,(float)ray.P1.X, (float)ray.P1.Y, x, y); // Dibujar el rayo
+                }
+            }
+                if (label != "")
+                {
+                    DrawText(label, ray.P1, color, ray);
+                }
+            }
         }
 
-        public void DrawCircle(Circle circle, GSharpColor color)
+        public void DrawCircle(Circle circle, GSharpColor color, string label = "")
         {
-            using (Graphics g = this.CreateGraphics())
+            using (Graphics g = Lienzo.CreateGraphics())
             {
                 Pen pen = new Pen(GetColor(color));
                 g.DrawEllipse(pen, (float)circle.Center.X - (float)circle.Radius.Value, (float)(circle.Center.Y - circle.Radius.Value), (float)circle.Radius.Value * 2, (float)circle.Radius.Value * 2);
             }
+            if (label != "")
+            {
+                DrawText(label, circle.Center, color,circle);
+            }
         }
 
-        public void DrawArc(Arc arc, GSharpColor color)
+        public void DrawArc(Arc arc, GSharpColor color, string label = "")
         {
-            /* using (Graphics g = this.CreateGraphics())
-             {
-                 Pen pen = new Pen(GetColor(color));
-                 g.DrawArc(pen, (float)(arc.Center.X - arc.Radius.Value), (float)(arc.Center.Y - arc.Radius.Value), (float)arc.Radius.Value * 2, (float)(arc.Radius.Value * 2), (float)(arc.InitialRayPoint), (float)(arc.EndAngle - arc.StartAngle));
-             }*/
-            throw new NotImplementedException();
+            using (Graphics graphics = Lienzo.CreateGraphics())
+            using (Pen pen = new Pen(GetColor(color)))
+            {   if (arc.InitialRayPoint.Y == arc.FinalRayPoint.Y && arc.InitialRayPoint.X == arc.FinalRayPoint.X)
+                {
+                    Circle circle = new Circle(arc.Center, arc.Radius);
+                    DrawCircle(circle, color);
+                }
+                else
+                {
+
+                float x = (float)(arc.Center.X - arc.Radius.Value);
+                float y =(float)(arc.Center.Y - arc.Radius.Value);
+                float diametro = (float)(2 * arc.Radius.Value);
+
+                // Calcula el ángulo inicial y el ángulo de extensión basado en los puntos de inicio y finalización
+                float startAngle = (float)Math.Atan2(arc.InitialRayPoint.Y - arc.Center.Y, arc.InitialRayPoint.X - arc.Center.X) * 180 / (float)Math.PI;
+                float sweepAngle = (float)Math.Atan2(arc.FinalRayPoint.Y - arc.Center.Y, arc.FinalRayPoint.X - arc.Center.X) * 180 / (float)Math.PI - startAngle;
+
+                // Dibuja el arco utilizando el método DrawArc
+                graphics.DrawArc(pen, x, y, diametro, diametro, startAngle, sweepAngle);
+                }
+            }
+            if (label != "")
+            {
+                DrawText(label, arc.Center, color, arc);
+            }
         }
 
-        public void DrawText(string text, GSharpInterpreter.Point point, GSharpColor color)
+        public void DrawText(string text, GSharpInterpreter.Point point, GSharpColor color, GSharpFigure figure)
         {
-            throw new NotImplementedException();
-        }
 
+                if (figure is Circle || figure is Arc)
+                {
+                    DrawTextForCirle(text, point, color, (Circle)figure);
+                }
+
+            using (Graphics graphics = Lienzo.CreateGraphics())
+            using (Pen pen = new Pen(GetColor(color)))
+            {
+                int offset = 10; // Espacio entre el texto y la figura
+                graphics.DrawString(text, EntradaDeCodigo.Font, Brushes.Black, (float)(point.X + offset), (float)(point.Y + offset));
+            }
+        }
+        void DrawTextForCirle(string text, GSharpInterpreter.Point point, GSharpColor color, Circle circle)
+        { 
+            using (Graphics graphics = Lienzo.CreateGraphics())
+            using (Pen pen = new Pen(GetColor(color)))
+            {
+                int offset = 10; // Espacio entre el texto y el círculo
+                graphics.DrawString(text, EntradaDeCodigo.Font, Brushes.Black, (float)(point.X + circle.Radius.Value + offset), (float)(point.Y - Font.Height / 2));
+            }
+        }
+        
         public void Print(string text)
         {
-           
-                SalidaDeEvaluacion.Texts += text + "\n";
-            
+
+            SalidaDeEvaluacion.Texts += text + Environment.NewLine;
+           // SalidaDeEvaluacion.AppendText(text + Environment.NewLine);
+
         }
         public void ReportError(string message)
         {
-            SalidaDeEvaluacion.Texts += message + "\n";
+            SalidaDeEvaluacion.Texts += message + Environment.NewLine;
         }
 
 
         private float GetSlope(GSharpInterpreter.Point p1, GSharpInterpreter.Point p2)
         {
-            return (float)((p2.X - p1.X) / (p2.Y - p1.Y));
+            return (float)((p2.Y - p1.Y)/(p2.X - p1.X) );
         }
 
+        private void Restaurar_Click(object sender, EventArgs e)
+        {
+            //Reinicia el lienzo
+            this.Lienzo.Refresh();
+            EntradaDeCodigo.Texts="";
+            SalidaDeEvaluacion.Texts="";
+        }
+
+        
     }
 }

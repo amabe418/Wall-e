@@ -5,6 +5,7 @@ using System.Data.SqlTypes;
 using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
+
 using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -20,6 +21,7 @@ namespace GSharpInterpreter
         private readonly List<Token> Tokens;        // The list of tokens produced by the lexer
         private int CurrentPosition;                // The current position in the token list
         private bool IsFunctionDeclaration;         // True if the parser is parsing a function declaration (used for error handling)
+        private bool ImportCanBeParsed;             // True if the parser can parse an import statement cause its at the beginning of the file
         public List<GSharpError> Errors { get; }    // The list of errors produced by the parser
         private int CurrentLine { 
             get 
@@ -33,6 +35,7 @@ namespace GSharpInterpreter
             Tokens = tokens;
             CurrentPosition = 0;
             IsFunctionDeclaration = false;
+            ImportCanBeParsed = true;
             Errors = new List<GSharpError>();
         }
         /// <summary>
@@ -56,7 +59,6 @@ namespace GSharpInterpreter
                     Errors.Add(error);
                     Synchronize();
                 }
-                
             }
             return AST;
         }
@@ -67,30 +69,29 @@ namespace GSharpInterpreter
         /// </summary>
         private Expression ParseInstruction()
         {
+            // Check if it's an import statement
+            if (Match(TokenType.IMPORT))
+                return ParseImport();
+            // If the parser couldn't found an import statement, it can't parse another one
+            ImportCanBeParsed = false;
+
             if (Peek().Type == TokenType.IDENTIFIER) {
                 if (PeekNext().Type == TokenType.COMMA)
                     return ParseMultipleAssignments();
                 else if (PeekNext().Type == TokenType.ASSIGN)
                     return ParseAssignment();
             }
-            if (Match(TokenType.COLOR))
-                return ParseColor();
             if (Match(TokenType.DRAW))
                 return ParseDraw();
             if (Match(TokenType.PRINT))
                 return ParsePrint();
+            if (Match(TokenType.COLOR))
+                return ParseColor();
             if (Match(TokenType.RESTORE))
                 return ParseRestore();
-            if (Match(TokenType.IMPORT))
-                return ParseImport();
-
-            if (Match(TokenType.POINT, TokenType.LINE, TokenType.SEGMENT, TokenType.RAY, TokenType.CIRCLE, TokenType.ARC))
+            // Check if it's a random declaration and not a function call
+            if (PeekNext().Type != TokenType.LEFT_PAREN && Match(TokenType.POINT, TokenType.LINE, TokenType.SEGMENT, TokenType.RAY, TokenType.CIRCLE, TokenType.ARC))
                 return ParseRandomDeclaration();
-
-            if (Match(TokenType.IF))
-                return ParseIf();
-            if (Match(TokenType.LET))
-                return ParseLet();
 
             return ParseExpression();
         }
@@ -99,11 +100,6 @@ namespace GSharpInterpreter
         /// </summary>
         private Expression ParseExpression()
         {
-            if (Match(TokenType.IF))
-                return ParseIf();
-            if (Match(TokenType.LET))
-                return ParseLet();
-
             return ParseLogical();
         }
 
@@ -230,7 +226,11 @@ namespace GSharpInterpreter
                     return FunctionCall(id.Lexeme);
                 return new ConstantExpression(id.Lexeme);
             }
-            if (Match(TokenType.POINT, TokenType.LINE, TokenType.SEGMENT, TokenType.RAY, TokenType.CIRCLE, TokenType.ARC))
+            if (Match(TokenType.IF))
+                return ParseIf();
+            if (Match(TokenType.LET))
+                return ParseLet();
+            if (Match(TokenType.POINT, TokenType.LINE, TokenType.SEGMENT, TokenType.RAY, TokenType.CIRCLE, TokenType.ARC, TokenType.MEASURE))
             {
                 string function = Previous().Lexeme.ToLower();
                 Consume(TokenType.LEFT_PAREN, $"Expected '(' after '{function}'.");
@@ -437,14 +437,19 @@ namespace GSharpInterpreter
         private Expression ParsePrint()
         {
             Expression expressionToPrint = ParseExpression();
-            return new PrintStatement(expressionToPrint);
+            if (Check(TokenType.SEMICOLON))
+                return new PrintStatement(expressionToPrint);
+            string label = Consume(TokenType.STRING, "Expected a string label after 'print'.").Lexeme;
+            return new PrintStatement(expressionToPrint, label);
         }
         /// <summary>
         /// Parses an import statement that adds code from another file.
         /// </summary>
         private Expression ParseImport()
         {
-            string id = Consume(TokenType.IDENTIFIER, "Expected an identifier after 'import'.").Lexeme;
+            if (!ImportCanBeParsed)
+                throw new GSharpError(ErrorType.COMPILING, "Import statements can only be used at the beginning of the file.", CurrentLine);
+            string id = Consume(TokenType.STRING, "Expected a string after 'import'.").Literal.ToString();
             return new ImportStatement(id);
         }
         /// <summary>

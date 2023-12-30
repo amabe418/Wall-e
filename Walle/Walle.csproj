@@ -67,7 +67,6 @@
     <Compile Include="GSharpInterpreter\Evaluator\Evaluator.cs" />
     <Compile Include="GSharpInterpreter\Evaluator\Scope.cs" />
     <Compile Include="GSharpInterpreter\Expressions\Expression.cs" />
-    <Compile Include="GSharpInterpreter\Expressions\GeometricExpression.cs" />
     <Compile Include="GSharpInterpreter\Expressions\Sequence.cs" />
     <Compile Include="GSharpInterpreter\GSharp\GSharpColor.cs" />
     <Compile Include="GSharpInterpreter\GSharp\GSharpError.cs" />

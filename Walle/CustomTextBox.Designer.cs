@@ -38,6 +38,7 @@
             this.textBox1.Location = new System.Drawing.Point(15, 7);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.textBox1.Size = new System.Drawing.Size(220, 16);
             this.textBox1.TabIndex = 0;
             this.textBox1.Click += new System.EventHandler(this.TextBox1_Click);
@@ -45,7 +46,7 @@
             // 
             // CustomTextBox
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this.textBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

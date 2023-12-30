@@ -31,6 +31,7 @@
             this.EntradaDeCodigo = new Walle.CustomTextBox();
             this.Lienzo = new Walle.CustomPictureBox();
             this.Ejecutar = new Walle.CustomButton();
+            this.Restaurar = new Walle.CustomButton();
             ((System.ComponentModel.ISupportInitialize)(this.Lienzo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,7 +66,7 @@
             this.EntradaDeCodigo.Margin = new System.Windows.Forms.Padding(4);
             this.EntradaDeCodigo.Multiline = true;
             this.EntradaDeCodigo.Name = "EntradaDeCodigo";
-            this.EntradaDeCodigo.Padding = new System.Windows.Forms.Padding(50);
+            this.EntradaDeCodigo.Padding = new System.Windows.Forms.Padding(10);
             this.EntradaDeCodigo.PasswordChar = false;
             this.EntradaDeCodigo.Size = new System.Drawing.Size(213, 335);
             this.EntradaDeCodigo.TabIndex = 2;
@@ -92,34 +93,57 @@
             // Ejecutar
             // 
             this.Ejecutar.AutoSize = true;
-            this.Ejecutar.BackColor = System.Drawing.Color.Turquoise;
-            this.Ejecutar.BackgroundColor = System.Drawing.Color.Turquoise;
+            this.Ejecutar.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.Ejecutar.BackgroundColor = System.Drawing.Color.LightSeaGreen;
             this.Ejecutar.BorderColor = System.Drawing.Color.LightSeaGreen;
             this.Ejecutar.BorderRadius = 35;
             this.Ejecutar.BorderSize = 2;
             this.Ejecutar.FlatAppearance.BorderSize = 0;
             this.Ejecutar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.Ejecutar.Font = new System.Drawing.Font("Microsoft Sans Serif", 19F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Ejecutar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Ejecutar.ForeColor = System.Drawing.Color.White;
-            this.Ejecutar.Location = new System.Drawing.Point(153, 408);
+            this.Ejecutar.Location = new System.Drawing.Point(50, 427);
             this.Ejecutar.Name = "Ejecutar";
-            this.Ejecutar.Size = new System.Drawing.Size(257, 83);
+            this.Ejecutar.Size = new System.Drawing.Size(213, 77);
             this.Ejecutar.TabIndex = 0;
             this.Ejecutar.Text = "Ejecutar";
             this.Ejecutar.TextColor = System.Drawing.Color.White;
             this.Ejecutar.UseVisualStyleBackColor = false;
             this.Ejecutar.Click += new System.EventHandler(this.CustomButton2_Click);
             // 
+            // Restaurar
+            // 
+            this.Restaurar.BackColor = System.Drawing.Color.LightSeaGreen;
+            this.Restaurar.BackgroundColor = System.Drawing.Color.LightSeaGreen;
+            this.Restaurar.BorderColor = System.Drawing.Color.LightSeaGreen;
+            this.Restaurar.BorderRadius = 35;
+            this.Restaurar.BorderSize = 2;
+            this.Restaurar.FlatAppearance.BorderSize = 0;
+            this.Restaurar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Restaurar.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Restaurar.ForeColor = System.Drawing.Color.White;
+            this.Restaurar.Location = new System.Drawing.Point(302, 427);
+            this.Restaurar.Name = "Restaurar";
+            this.Restaurar.Size = new System.Drawing.Size(208, 77);
+            this.Restaurar.TabIndex = 4;
+            this.Restaurar.TabStop = false;
+            this.Restaurar.Text = "Restaurar";
+            this.Restaurar.TextColor = System.Drawing.Color.White;
+            this.Restaurar.UseVisualStyleBackColor = false;
+            this.Restaurar.Click += new System.EventHandler(this.Restaurar_Click);
+            // 
             // Form1
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(1088, 584);
+            this.Controls.Add(this.Restaurar);
             this.Controls.Add(this.SalidaDeEvaluacion);
             this.Controls.Add(this.EntradaDeCodigo);
             this.Controls.Add(this.Lienzo);
             this.Controls.Add(this.Ejecutar);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "Form1";
+            this.Text = "point";
             ((System.ComponentModel.ISupportInitialize)(this.Lienzo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -132,8 +156,7 @@
         public CustomPictureBox Lienzo;
         public CustomTextBox EntradaDeCodigo;
         public CustomTextBox SalidaDeEvaluacion;
-
-       
+        private CustomButton Restaurar;
     }
 }
 

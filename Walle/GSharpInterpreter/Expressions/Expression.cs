@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace GSharpInterpreter
 {
@@ -214,9 +218,15 @@ namespace GSharpInterpreter
     public class PrintStatement : Expression
     {
         public Expression Expression { get; }
+        public string Label { get; set; }
         public PrintStatement(Expression expression)
         {
             Expression = expression;
+        }
+        public PrintStatement(Expression expression, string label)
+        {
+            Expression = expression;
+            Label = label;
         }
     }
     /// <summary>
