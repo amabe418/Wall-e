@@ -68,7 +68,8 @@ namespace Walle
                 graph.DrawEllipse(pen, (float)point.X, (float)point.Y, 2F, 2F);
                 if (label != "")
                 {
-                    DrawText(label, point, color, point);
+                    int offset = 10; // Espacio entre el texto y el círculo
+                    graph.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(point.X + offset), (float)(point.Y + offset));
                 }
             }
             
@@ -86,6 +87,11 @@ namespace Walle
                 using (Pen pen = new Pen(GetColor(color)))
                 {
                     graphics.DrawLine(pen, x, 0, x, CanvasWidth);
+                    if (label != "")
+                    {
+                        int offset = 10; // Espacio entre el texto y el círculo
+                        graphics.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(line.P1.X + offset), (float)(line.P1.Y + offset));
+                    }
                 }
 
             }
@@ -104,7 +110,8 @@ namespace Walle
                     graphics.DrawLine(pen, (float)point1.X, (float)point1.Y, (float)point2.X, (float)point2.Y);
                     if (label != "")
                     {
-                        DrawText(label, line.P1, color, line);
+                        int offset = 10; // Espacio entre el texto y el círculo
+                        graphics.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(line.P1.X + offset), (float)(line.P1.Y + offset));
                     }
                 }
             }
@@ -117,11 +124,13 @@ namespace Walle
             using (Pen pen = new Pen(GetColor(color), 4F))
             {
                 graph.DrawLine(pen, (float)segment.P1.X, (float)segment.P1.Y, (float)segment.P2.X, (float)segment.P2.Y);
+                if (label != "")
+                {
+                    int offset = 10; // Espacio entre el texto y el círculo
+                    graph.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(segment.P1.X + offset), (float)(segment.P1.Y + offset));
+                }
             }
-            if (label != "")
-            {
-                DrawText(label, segment.P1, color, segment);
-            }
+          
         }
 
         public void DrawRay(Ray ray, GSharpColor color, string label = "")
@@ -172,7 +181,8 @@ namespace Walle
                 }
                 if (label != "")
                 {
-                    DrawText(label, ray.P1, color, ray);
+                    int offset = 10; // Espacio entre el texto y el círculo
+                    graphics.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(ray.P1.X + offset), (float)(ray.P1.Y + offset));
                 }
             }
         }
@@ -183,11 +193,15 @@ namespace Walle
             {
                 Pen pen = new Pen(GetColor(color));
                 g.DrawEllipse(pen, (float)circle.Center.X - (float)circle.Radius.Value, (float)(circle.Center.Y - circle.Radius.Value), (float)circle.Radius.Value * 2, (float)circle.Radius.Value * 2);
+
+                if (label != "")
+                {
+                    int offset = 10; // Espacio entre el texto y el círculo
+                    g.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(circle.Center.X + circle.Radius.Value + offset), (float)(circle.Center.Y - Font.Height / 2));
+                }
+
             }
-            if (label != "")
-            {
-                DrawText(label, circle.Center, color, circle);
-            }
+           
         }
 
         public void DrawArc(Arc arc, GSharpColor color, string label = "")
@@ -217,36 +231,12 @@ namespace Walle
                     // Dibuja el arco utilizando el método DrawArc
                     graphics.DrawArc(pen,(float)(arc.Center.X - arc.Radius.Value), (float)(arc.Center.Y - arc.Radius.Value), (float)arc.Radius.Value * 2, (float)arc.Radius.Value * 2, startAngle, sweepAngle);
                 }
-            
-            }
-            if (label != "")
-            {
-                DrawText(label, arc.Center, color, arc);
-            }
-        }
 
-        public void DrawText(string text, GSharpInterpreter.Point point, GSharpColor color, GSharpFigure figure)
-        {
-
-            if (figure is Circle || figure is Arc)
-            {
-                DrawTextForCirle(text, point, color, (Circle)figure);
-            }
-
-            using (Graphics graphics = Lienzo.CreateGraphics())
-            using (Pen pen = new Pen(GetColor(color)))
-            {
-                int offset = 10; // Espacio entre el texto y la figura
-                graphics.DrawString(text, EntradaDeCodigo.Font, Brushes.Black, (float)(point.X + offset), (float)(point.Y + offset));
-            }
-        }
-        void DrawTextForCirle(string text, GSharpInterpreter.Point point, GSharpColor color, Circle circle)
-        {
-            using (Graphics graphics = Lienzo.CreateGraphics())
-            using (Pen pen = new Pen(GetColor(color)))
-            {
-                int offset = 10; // Espacio entre el texto y el círculo
-                graphics.DrawString(text, EntradaDeCodigo.Font, Brushes.Black, (float)(point.X + circle.Radius.Value + offset), (float)(point.Y - Font.Height / 2));
+                if (label != "")
+                {
+                    int offset = 10; // Espacio entre el texto y la figura
+                    graphics.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(arc.InitialRayPoint.X + offset), (float)(arc.InitialRayPoint.Y + offset));
+                }
             }
         }
 
@@ -275,8 +265,6 @@ namespace Walle
             EntradaDeCodigo.Texts = "";
             SalidaDeEvaluacion.Texts = "";
         }
-
-      
 
        
     }
