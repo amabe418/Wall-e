@@ -100,6 +100,7 @@
             // 
             this.Restaurar.BackColor = System.Drawing.Color.White;
             this.Restaurar.BackgroundColor = System.Drawing.Color.White;
+            this.Restaurar.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Restaurar.BackgroundImage")));
             this.Restaurar.BorderColor = System.Drawing.Color.White;
             this.Restaurar.BorderRadius = 70;
             this.Restaurar.BorderSize = 2;
