@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "iTx4rBRhBDEucqaM+PIni7dQkE19uxmbqryy9UufOnaiHaD4fwdeKZlwraiyY245osmTcemOBqXtja0Bray/IA==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amalia\\Desktop\\don pana\\version 4\\GeoWall-E-main\\WinFormsUI\\WinFormsUI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.14\\microsoft.netcore.app.host.win-x64.7.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}

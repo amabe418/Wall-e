@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "JwAIGfS2UJk8Y3VUihwBRXkR6czGSYGoCOd+f3wT5a7zmKXtZh3aTdsQqdqYSPWsg1P/kpXigSqVdT806YkfXQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amalia\\Desktop\\don pana\\version 4\\GeoWall-E-main\\ConsoleUI\\ConsoleUI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.14\\microsoft.netcore.app.host.win-x64.7.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}

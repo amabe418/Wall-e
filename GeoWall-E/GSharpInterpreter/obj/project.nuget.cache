@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "e32zjEzgO1Ywi+H/FR3OGVzlu3O+ljvjkBgQxYqAdLRUGO5CF51uROLrTlWwhUa+b8pxmWiI/Bkq1imFcUR5Dg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Amalia\\Desktop\\don pana\\version 4\\GeoWall-E-main\\GSharpInterpreter\\GSharpInterpreter.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.14\\microsoft.netcore.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.14\\microsoft.windowsdesktop.app.ref.7.0.14.nupkg.sha512",
+    "C:\\Users\\Amalia\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.14\\microsoft.aspnetcore.app.ref.7.0.14.nupkg.sha512"
+  ],
+  "logs": []
+}
