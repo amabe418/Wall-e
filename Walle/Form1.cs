@@ -235,7 +235,8 @@ namespace Walle
                 if (label != "")
                 {
                     int offset = 10; // Espacio entre el texto y la figura
-                    graphics.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(arc.InitialRayPoint.X + offset), (float)(arc.InitialRayPoint.Y + offset));
+                   GSharpInterpreter.Point point = StandardLibrary.RandomPointInArc(arc);
+                    graphics.DrawString(label, EntradaDeCodigo.Font, Brushes.Black, (float)(point.X + offset), (float)(point.Y + offset));
                 }
             }
         }
