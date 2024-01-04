@@ -1,0 +1,11 @@
+C:\Users\Amalia\source\repos\Walle\Walle\bin\Debug\Walle.exe.config
+C:\Users\Amalia\source\repos\Walle\Walle\bin\Debug\Walle.exe
+C:\Users\Amalia\source\repos\Walle\Walle\bin\Debug\Walle.pdb
+C:\Users\Amalia\source\repos\Walle\Walle\obj\Debug\Walle.csprojAssemblyReference.cache
+C:\Users\Amalia\source\repos\Walle\Walle\obj\Debug\Walle.CustomTextBox.resources
+C:\Users\Amalia\source\repos\Walle\Walle\obj\Debug\Walle.Properties.Resources.resources
+C:\Users\Amalia\source\repos\Walle\Walle\obj\Debug\Walle.csproj.GenerateResource.cache
+C:\Users\Amalia\source\repos\Walle\Walle\obj\Debug\Walle.csproj.CoreCompileInputs.cache
+C:\Users\Amalia\source\repos\Walle\Walle\obj\Debug\Walle.exe
+C:\Users\Amalia\source\repos\Walle\Walle\obj\Debug\Walle.pdb
+C:\Users\Amalia\source\repos\Walle\Walle\obj\Debug\Walle.Form1.resources
